@@ -1,4 +1,5 @@
 # React Native RNCryptor
+
 It's an easy-to-use library for encrypting data with AES 256 in React Native. [RNCryptor](http://rncryptor.github.io/JNCryptor/javadoc/) developed popular and easy-to-use AES libs, implementations are available in
 [C++](https://github.com/RNCryptor/RNCryptor-cpp),
 [C#](https://github.com/RNCryptor/RNCryptor-cs),
@@ -15,21 +16,27 @@ and [Ruby](https://github.com/RNCryptor/ruby_rncryptor).
 `$ react-native link react-native-rncryptor`
 
 ## Usage
+
 ```javascript
-import RNCryptor from 'react-native-rncryptor';
+import RNCryptor from "react-native-rncryptor";
 
-RNCryptor.encrypt('a text', 'password').then((encryptedbase64)=>{
-  console.log(encryptedbase64)
-}).catch((error)=>{
-  console.log(error)
-})
+RNCryptor.encrypt("a text", "password")
+  .then((encryptedbase64) => {
+    console.log(encryptedbase64);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 
-RNCryptor.decrypt('encrypted base64', 'password').then((plaintext)=>{
-  console.log(plaintext)
-}).catch((error)=>{
-  console.log(error)
-})
+RNCryptor.decrypt("encrypted base64", "password")
+  .then((plaintext) => {
+    console.log(plaintext);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 ```
 
 ## License
+
 MIT
