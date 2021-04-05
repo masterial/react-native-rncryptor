@@ -24,6 +24,27 @@ RCT_EXPORT_METHOD(encrypt:(NSString *)text
     }
 }
 
+RCT_EXPORT_METHOD(encryptFromBase64:(NSString *)base64
+                  password:(NSString *)password
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
+{
+    NSData *data = [[NSData alloc] initWithBase64EncodedString:base64 options:0];
+    
+    NSError *error;
+    NSData *encryptedData = [RNEncryptor encryptData:data
+                                        withSettings:kRNCryptorAES256Settings
+                                            password:password
+                                               error:&error];
+    NSString *b64 = [encryptedData base64EncodedStringWithOptions:0];
+    
+    if(error){
+        reject(@"Error", @"Decrypt failed", error);
+    } else {
+        resolve(b64);
+    }
+}
+
 RCT_EXPORT_METHOD(decrypt:(NSString *)base64 
                   password:(NSString *)password
                   resolver:(RCTPromiseResolveBlock)resolve
@@ -42,5 +63,26 @@ RCT_EXPORT_METHOD(decrypt:(NSString *)base64
         resolve(string);
     }
 }
+
+RCT_EXPORT_METHOD(decryptToBase64:(NSString *)encrypted
+                  password:(NSString *)password
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
+{
+    NSData *data = [[NSData alloc] initWithBase64EncodedString:encrypted options:0];
+    NSError *error;
+    NSData *decryptedData = [RNDecryptor decryptData:data
+                                        withPassword:password
+                                               error:&error];
+    
+    NSString *b64 = [decryptedData base64EncodedStringWithOptions:0];
+    
+    if(error){
+        reject(@"Error", @"Decrypt failed", error);
+    } else {
+        resolve(b64);
+    }
+}
+
 @end
   
