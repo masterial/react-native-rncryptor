@@ -176,6 +176,7 @@ public class RNRncryptorModule extends ReactContextBaseJavaModule {
     try {
       InputStream inputStream = getInputStream(filepath);
       byte[] inputData = getInputStreamBytes(inputStream);
+      
       String base64Content = Base64.encodeToString(inputData, Base64.NO_WRAP);
 
       promise.resolve(base64Content);
